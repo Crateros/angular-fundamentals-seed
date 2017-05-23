@@ -13,7 +13,7 @@ interface Passenger {
   fullname: string,
   checkedIn: boolean,
   checkInDate: number | null,
-  children?: Child[] | null,
+  children: Child[] | null,
 }
 
 
@@ -86,8 +86,9 @@ interface Passenger {
               Check in date:
               {{ passenger.checkInDate? (passenger.checkInDate | date: 'yMMMd' | uppercase) : 'Not checked in' }}
             </div>
+            <!-- use safe navigation operator ? here, since passenger.children.length could be null and would throw error -->
             <div class="children">
-              Children: {{ passenger.children.length }}
+              Children: {{ passenger.children?.length || 0 }}
             </div>
           </li>
         </ul>
