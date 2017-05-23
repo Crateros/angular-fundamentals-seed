@@ -1,6 +1,22 @@
 //Import component decorator
 import { Component } from '@angular/core';
 
+interface Child {
+  name: string,
+  age: number,
+}
+
+// Virtual object (descriptor) that describes a single passenger
+//For optional property use ? i.e. checkInDate?: number
+interface Passenger {
+  id: number,
+  fullname: string,
+  checkedIn: boolean,
+  checkInDate: number | null,
+  children?: Child[] | null,
+}
+
+
 //Decorator declaration, targets app-root html element in index
 @Component({
   selector: 'app-root',
@@ -53,6 +69,32 @@ import { Component } from '@angular/core';
 
       <br>
 
+      <div class="app">
+        <h3>Airline Passengers</h3>
+        Total passengers: {{ passengers.length }}
+        <ul>
+          <li *ngFor="let passenger of passengers; let i = index;">
+            <span
+              class="status"
+              [ngClass]="{ 'checked-in': passenger.checkedIn,
+                           'checked-out': !passenger.checkedIn}"
+            >
+            </span>
+            {{ i + 1 }}: {{ passenger.fullname }}
+            <p>{{ passenger | json }}</p>
+            <div class="date">
+              Check in date:
+              {{ passenger.checkInDate? (passenger.checkInDate | date: 'yMMMd' | uppercase) : 'Not checked in' }}
+            </div>
+            <div class="children">
+              Children: {{ passenger.children.length }}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <br>
+
       <div>
         {{ numberOne }}
         {{ numberTwo }}
@@ -65,6 +107,38 @@ import { Component } from '@angular/core';
   `
 })
 export class AppComponent {
+
+  passengers: Passenger[] = [
+    {
+      id: 1,
+      fullname: 'TheSwede',
+      checkedIn: true,
+      checkInDate: 1490742000000,
+      children: null,
+    },
+    {
+      id: 2,
+      fullname: 'IamTwo',
+      checkedIn: false,
+      checkInDate: null,
+      children: [{ name: 'Boy', age: 2 }],
+    },
+    {
+      id: 3,
+      fullname: 'NumeroThree',
+      checkedIn: false,
+      checkInDate: null,
+      children: null,
+    },
+    {
+      id: 4,
+      fullname: 'Talia',
+      checkedIn: true,
+      checkInDate: 1488412800000,
+      children: [{ name: 'Girl', age: 3 }],
+    },
+  ]
+
   name: string = 'Donnie';
   name2: string = '';
   handleClick() {
