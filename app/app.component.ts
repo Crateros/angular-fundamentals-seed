@@ -13,11 +13,23 @@ import { Component } from '@angular/core';
       <!-- element.src = 'logo.svg -->
       <img [src]="logo">
       <!-- element.value = 'Donnie' -->
-      <input
+      <button (click)="handleClick()">Click Me!</button>
+      <!-- <input
         type="text"
         [value]="name"
         (input)="handleInput($event)"
-        (blur)="handleBlur($event)">
+        (blur)="handleBlur($event)"> -->
+      <div>One-way databinding with (ngModelChange)=handleChange()</div>
+      <input
+        type="text"
+        [ngModel]="name"
+        (ngModelChange)="handleChange($event)"
+        >
+      <div>Two-way databinding using [(ngModel)]</div>
+      <input
+        type="text"
+        [(ngModel)]="name"
+        >
       <div> {{ name }} </div>
       <div>
         {{ numberOne }}
@@ -32,9 +44,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   name: string = 'Donnie';
-  handleInput(event: any) {
-    //Updates the {{ name }} element on keystroke input
-    this.name = event.target.value;
+  handleClick() {
+    this.name = "Clicked!";
+  }
+  handleChange(value: string) {
+    //Updates the {{ name }} element on keystroke input, this mimics two way data binding, but one way data flow that updates on the fly
+    this.name = value;
   }
   handleBlur(event: any) {
     //Updates the {{ name }} element on blur
