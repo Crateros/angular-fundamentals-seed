@@ -24,13 +24,35 @@ import { Component } from '@angular/core';
         type="text"
         [ngModel]="name"
         (ngModelChange)="handleChange($event)"
-        >
+      >
       <div>Two-way databinding using [(ngModel)]</div>
       <input
         type="text"
         [(ngModel)]="name"
-        >
-      <div> {{ name }} </div>
+      >
+      <div>{{ name }}</div>
+
+      <br>
+
+      <div>Template #ref variable</div>
+      <button (click)="handleClickTwo(username.value)">Get Value</button>
+      <input
+        type="text"
+        #username
+      >
+
+      <br>
+
+      <div>ngIf Selection</div>
+      <input
+        type="text"
+        [value]="name2"
+        (input)="handleChangeTwo($event.target.value)"
+      >
+      <div *ngIf="name2.length > 2">Searching for... {{ name2 }}</div>
+
+      <br>
+
       <div>
         {{ numberOne }}
         {{ numberTwo }}
@@ -44,12 +66,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   name: string = 'Donnie';
+  name2: string = '';
   handleClick() {
     this.name = "Clicked!";
+  }
+  handleClickTwo(value: string) {
+    console.log(value);
   }
   handleChange(value: string) {
     //Updates the {{ name }} element on keystroke input, this mimics two way data binding, but one way data flow that updates on the fly
     this.name = value;
+  }
+  handleChangeTwo(value: string) {
+    this.name2 = value;
   }
   handleBlur(event: any) {
     //Updates the {{ name }} element on blur
