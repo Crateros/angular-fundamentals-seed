@@ -105,6 +105,12 @@ interface Passenger {
       <div>
       {{ isHappy ? ':)' : ':(' }}
     <div>
+
+    <br>
+
+    <div>
+      <stock-inventory></stock-inventory>
+    </div>
   `
 })
 export class AppComponent {
