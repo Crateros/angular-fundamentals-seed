@@ -35,18 +35,19 @@ interface Passenger {
         [value]="name"
         (input)="handleInput($event)"
         (blur)="handleBlur($event)"> -->
-      <div>One-way databinding with (ngModelChange)=handleChange()</div>
+      <div>One-way databinding with (ngModelChange)=handleChange(). Model change tracksn event emission and updates value of the ngModel</div>
       <input
         type="text"
         [ngModel]="name"
         (ngModelChange)="handleChange($event)"
       >
+      <div>{{ name }}<div>
       <div>Two-way databinding using [(ngModel)]</div>
       <input
         type="text"
-        [(ngModel)]="name"
+        [(ngModel)]="name3"
       >
-      <div>{{ name }}</div>
+      <div>{{ name3 }}</div>
 
       <br>
 
@@ -148,6 +149,7 @@ export class AppComponent {
 
   name: string = 'Donnie';
   name2: string = '';
+  name3: string = '';
   handleClick() {
     this.name = "Clicked!";
   }
